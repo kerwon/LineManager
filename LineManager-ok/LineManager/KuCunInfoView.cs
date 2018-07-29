@@ -27,7 +27,7 @@ namespace LineManager
 
 
 
-        public int 长度 { get; set; }
+        public decimal 长度 { get; set; }
 
 
 

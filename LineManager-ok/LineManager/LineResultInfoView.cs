@@ -22,10 +22,10 @@ namespace LineManager
         public string 是否整轮 { get; set; }
 
 
-        public int 出库长度 { get; set; }
+        public decimal 出库长度 { get; set; }
 
 
-        public int 剩余长度 { get; set; }
+        public decimal 剩余长度 { get; set; }
 
 
 

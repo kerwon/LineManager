@@ -41,7 +41,7 @@ namespace LineManager
         /// 长度
         /// </summary>
         [Display(Name = "排号")]
-        public int Length { get; set; }
+        public decimal Length { get; set; }
 
 
         /// <summary>

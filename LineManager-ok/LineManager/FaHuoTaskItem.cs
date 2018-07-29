@@ -9,7 +9,7 @@ namespace LineManager
 
         public  string XingHao { get; set; }
          
-        public int Length { get; set; }
+        public decimal Length { get; set; }
 
 
         public static List<FaHuoTaskItem> MapTaskItems(List<FaHuoInfo> faHuoInfos)

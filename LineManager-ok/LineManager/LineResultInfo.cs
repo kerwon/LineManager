@@ -33,13 +33,13 @@
         /// <summary>
         /// 出库长度
         /// </summary>
-        public int? Length { get; set; }
+        public decimal? Length { get; set; }
 
 
         /// <summary>
         /// 剩余长度
         /// </summary>
-        public int? LeaveLength { get; set; }
+        public decimal? LeaveLength { get; set; }
 
 
         ///// <summary>

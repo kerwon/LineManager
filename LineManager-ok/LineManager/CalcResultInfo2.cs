@@ -61,7 +61,7 @@ namespace LineManager
 
                     var tmpWheelResultList = new List<LineResultInfo>();
                     var tmpWheelDelKucunInfos = new List<KuCunInfo>();
-                    var joinFaHuoTaskLength = 0;
+                    var joinFaHuoTaskLength = 0m;
 
                     if (taskItem.Length == noWheelKuCunTotalLength)
                     {// 所有剩余非整轮长度之和 刚好满足出库长度, 直接进行出库操作
@@ -218,16 +218,16 @@ namespace LineManager
                     var isMatch = false;
                     var allNoWheelXingHangArr = noWheelKuCunList.ToArray();  //allXingHaoList.ToArray();
 
-                    List<Tuple<int, KuCunInfo[]>> allCombinationList = new List<Tuple<int, KuCunInfo[]>>();
-                    List<Tuple<int, KuCunInfo[]>> lessCombinationNoWheelList = new List<Tuple<int, KuCunInfo[]>>();
-                    List<Tuple<int, KuCunInfo[]>> gEqualsCombinationNoWheelList = new List<Tuple<int, KuCunInfo[]>>();
+                    List<Tuple<decimal, KuCunInfo[]>> allCombinationList = new List<Tuple<decimal, KuCunInfo[]>>();
+                    List<Tuple<decimal, KuCunInfo[]>> lessCombinationNoWheelList = new List<Tuple<decimal, KuCunInfo[]>>();
+                    List<Tuple<decimal, KuCunInfo[]>> gEqualsCombinationNoWheelList = new List<Tuple<decimal, KuCunInfo[]>>();
 
-                    Tuple<int, KuCunInfo[]> lessNoWheelItem = null;
-                    Tuple<int, KuCunInfo[]> gEqualNoWheelItem = null;
+                    Tuple<decimal, KuCunInfo[]> lessNoWheelItem = null;
+                    Tuple<decimal, KuCunInfo[]> gEqualNoWheelItem = null;
 
-                    Tuple<int, KuCunInfo[]> lessPartNoWheelItem = null;
-                    Tuple<int, KuCunInfo[]> gEqualPartNoWheelItem = null;
-                    var sumTotalCount = 0;
+                    Tuple<decimal, KuCunInfo[]> lessPartNoWheelItem = null;
+                    Tuple<decimal, KuCunInfo[]> gEqualPartNoWheelItem = null;
+                    decimal sumTotalCount = 0m;
                     if (condition.Length > 0)
                     {
                         if (condition.LessLengthCount > 0)
@@ -235,7 +235,7 @@ namespace LineManager
                             var lessAllNoWheelList = allNoWheelXingHangArr.Where(m => m.Length < condition.Length).ToArray();
                             var minCount = Math.Min(lessAllNoWheelList.Count(), condition.LessLengthCount);
                             sumTotalCount += minCount;
-                            var finalLeaveLength = int.MaxValue;
+                            decimal finalLeaveLength = int.MaxValue;
 
                             for (int i = 1; i <= minCount; i++)
                             {
@@ -245,8 +245,8 @@ namespace LineManager
                                 foreach (var kuCunItem in tmpList)
                                 {
                                     var combinaItemList = kuCunItem.ToList();
-                                    var total = combinaItemList.Sum(item => item.Length);
-                                    var tuplue = new Tuple<int, KuCunInfo[]>(total, kuCunItem);
+                                    decimal total = combinaItemList.Sum(item => item.Length);
+                                    var tuplue = new Tuple<decimal, KuCunInfo[]>(total, kuCunItem);
                                     lessCombinationNoWheelList.Add(tuplue);
 
                                     if (tmpLeaveTaskItemLength == total)
@@ -272,7 +272,7 @@ namespace LineManager
                             var gEqualsAllNoWheelList = allNoWheelXingHangArr.Where(m => m.Length >= condition.Length).ToArray();
                             var minCount = Math.Min(gEqualsAllNoWheelList.Count(), condition.GEqualsLengthCount);
                             sumTotalCount += minCount;
-                            var finalLeaveLength = int.MaxValue;
+                            decimal finalLeaveLength = int.MaxValue;
 
                             for (int i = 1; i <= minCount; i++)
                             {
@@ -283,7 +283,7 @@ namespace LineManager
                                 {
                                     var combinaItemList = kuCunItem.ToList();
                                     var total = combinaItemList.Sum(item => item.Length);
-                                    var tuplue = new Tuple<int, KuCunInfo[]>(total, kuCunItem);
+                                    var tuplue = new Tuple<decimal, KuCunInfo[]>(total, kuCunItem);
                                     gEqualsCombinationNoWheelList.Add(tuplue);
 
                                     if (tmpLeaveTaskItemLength == total)
@@ -309,7 +309,7 @@ namespace LineManager
                             if (lessCombinationNoWheelList.Any() && gEqualsCombinationNoWheelList.Any())
                             {// 两端都没匹配到, 需要校验配对 
                                 //var existMatch = false;
-                                var finalLeaveLength = int.MaxValue;
+                                decimal finalLeaveLength = int.MaxValue;
 
                                 foreach (var lessTuple in lessCombinationNoWheelList)
                                 {
@@ -317,7 +317,7 @@ namespace LineManager
 
                                     foreach (var gEqualTuple in gEqualsCombinationNoWheelList)
                                     {
-                                        var tmpFinalLeaveLength = tmpLeaveTaskItemLength - lessTuple.Item1 - gEqualTuple.Item1;
+                                        decimal tmpFinalLeaveLength = tmpLeaveTaskItemLength - lessTuple.Item1 - gEqualTuple.Item1;
                                         if (tmpFinalLeaveLength == 0)
                                         {// 刚好匹配
                                             //existMatch = true;
@@ -357,8 +357,8 @@ namespace LineManager
 
                         if (!isMatch)
                         {
-                            var finalList = new List<Tuple<int, KuCunInfo[]>>();
-                            var finalLength = int.MaxValue;
+                            var finalList = new List<Tuple<decimal, KuCunInfo[]>>();
+                            decimal finalLength = int.MaxValue;
                             //var lessPartLength = int.MaxValue;
                             if (lessPartNoWheelItem != null)
                             {
@@ -530,7 +530,7 @@ namespace LineManager
                             {
                                 var combinaItemList = kuCunItem.ToList();
                                 var total = combinaItemList.Sum(item => item.Length);
-                                allCombinationList.Add(new Tuple<int, KuCunInfo[]>(total, kuCunItem));
+                                allCombinationList.Add(new Tuple<decimal, KuCunInfo[]>(total, kuCunItem));
 
                                 if (total == tmpLeaveTaskItemLength)
                                 {//刚好匹配 不需要截取的半轮或半轮组合视为整轮

@@ -9,7 +9,7 @@ namespace LineManager
 
         public string 型号 { get; set; }
 
-        public int 长度 { get; set; }
+        public decimal 长度 { get; set; }
 
 
         public static List<FaHuoTaskItemView> MapTaskItems(List<FaHuoInfo> faHuoInfos)

@@ -144,7 +144,8 @@ namespace LineManager
 
                         if (column.HeaderValue.Equals("长度"))
                         {
-                            int.TryParse(tmpCellVal, out int tmpval);
+                            //int.TryParse(tmpCellVal, out int tmpval);
+                            decimal.TryParse(tmpCellVal, out decimal tmpval);
                             item.Length = tmpval;
                         }
 
@@ -260,8 +261,8 @@ namespace LineManager
                             row.CreateCell(colIndex++).SetCellValue(lineResultInfo.Brand);
                             row.CreateCell(colIndex++).SetCellValue(paiLunHaoCell);
                             row.CreateCell(colIndex++).SetCellValue(isWheel);//lineResultInfo.IsWheel);
-                            row.CreateCell(colIndex++).SetCellValue(lineResultInfo.Length.GetValueOrDefault());
-                            row.CreateCell(colIndex++).SetCellValue(lineResultInfo.LeaveLength.GetValueOrDefault());
+                            row.CreateCell(colIndex++).SetCellValue(lineResultInfo.Length.GetValueOrDefault(0).ToString());
+                            row.CreateCell(colIndex++).SetCellValue(lineResultInfo.LeaveLength.GetValueOrDefault(0).ToString());
                             brandFirst = false;
                         }
                         else
@@ -273,8 +274,8 @@ namespace LineManager
                             newRow.CreateCell(colIndex++).SetCellValue(lineResultInfo.Brand);
                             newRow.CreateCell(colIndex++).SetCellValue(paiLunHaoCell);
                             newRow.CreateCell(colIndex++).SetCellValue(isWheel);//lineResultInfo.IsWheel);
-                            newRow.CreateCell(colIndex++).SetCellValue(lineResultInfo.Length.GetValueOrDefault());
-                            newRow.CreateCell(colIndex++).SetCellValue(lineResultInfo.LeaveLength.GetValueOrDefault());
+                            newRow.CreateCell(colIndex++).SetCellValue(lineResultInfo.Length.GetValueOrDefault(0).ToString());
+                            newRow.CreateCell(colIndex++).SetCellValue(lineResultInfo.LeaveLength.GetValueOrDefault(0).ToString());
                         }
                     }
                 }

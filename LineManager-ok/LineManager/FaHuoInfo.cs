@@ -28,6 +28,6 @@ namespace LineManager
         /// <summary>
         /// 长度
         /// </summary>
-        public int Length { get; set; }
+        public decimal Length { get; set; }
     }
 }
